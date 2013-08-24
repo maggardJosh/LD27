@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class Main : MonoBehaviour
 {
     World world;
-    Clock clock;
 
     // Use this for initialization
     void Start()
@@ -23,23 +22,9 @@ public class Main : MonoBehaviour
 
         world = new World();
 
-        clock = new Clock();
+        
 
-
-        FCamObject gui = new FCamObject();
-        gui.AddChild(clock);
-
-        Timer timer = new Timer();
-        gui.AddChild(timer);
-
-        world.setGUI(gui);
-        world.setClock(clock);
-
-        Player player = new Player(true);
-        gui.follow(player);
-        player.setScale(2.0f, true);
-        world.addPlayer(player);
-        Futile.stage.AddChild(gui);
+        
         for (int ind = 0; ind < 100; ind++)
         {
             Player p = new Player();

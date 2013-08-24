@@ -20,11 +20,29 @@ public class World
     public FTilemap Tilemap { get { return tilemap; } }
 
     public FCamObject gui;
+    public FLabel enemiesLeft;
 
     private Clock clock;
 
     public World()
     {
+        clock = new Clock();
+
+        FCamObject gui = new FCamObject();
+        gui.AddChild(clock);
+
+        Timer timer = new Timer();
+        gui.AddChild(timer);
+
+        
+
+        
+        enemiesLeft = new FLabel("Small", "Enemies Left: 0000");
+        enemiesLeft.y = Futile.screen.halfHeight - 20;
+        this.gui = gui;
+
+        gui.AddChild(enemiesLeft);
+        setClock(clock);
 
         Futile.stage.AddChild(playerLayer);
 
@@ -55,6 +73,12 @@ public class World
             }
 
         playerLayer.AddChild(tmxMap);
+        tilemap.clipNode = gui;
+        Player player = new Player(true);
+        gui.follow(player);
+        player.setScale(2.0f, true);
+        addPlayer(player);
+        Futile.stage.AddChild(gui);
     }
 
     public bool isWalkable(int tileX, int tileY)
@@ -80,7 +104,8 @@ public class World
 
     public void Update()
     {
-        
+        string enemiesLeftString = String.Format("{0:0000}", playerList.Count - 1);
+        enemiesLeft.text = "Enemies Left: " + enemiesLeftString;
         for (int ind = 0; ind < powerups.Count; ind++)
         {
             Powerup powerup = powerups[ind];
@@ -145,11 +170,9 @@ public class World
         playerLayer.AddChild(b);
     }
 
-    internal void setGUI(FCamObject gui)
-    {
-        tilemap.clipNode = gui;
-        this.gui = gui;
-    }
+    
+
+    
 
     internal void setClock(Clock clock)
     {

@@ -25,9 +25,7 @@ public class PowerupClock : Clock
         powerupSprite.SetPosition(this.GetPosition());
         this.container.AddChild(powerupSprite);
         if (powerupType != Powerup.PowerupType.NONE)
-        {
             this.percentage = 1.0f;
-        }
     }
 
     public override void Update()
