@@ -6,6 +6,8 @@ using UnityEngine;
 
 	public class TitleScreen : FContainer
 	{
+        private float onScreenCount = 0;
+        private int startingLevel = 0;
         public TitleScreen(): base()
         {
             FSprite background = new FSprite("titleScreen");
@@ -14,6 +16,8 @@ using UnityEngine;
         public override void HandleAddedToStage()
         {
             Futile.instance.SignalUpdate += Update;
+            Futile.stage.x = 0;
+            Futile.stage.y = 0;
             base.HandleAddedToStage();
         }
 
@@ -25,10 +29,11 @@ using UnityEngine;
 
         public void Update()
         {
-            if (Input.GetMouseButtonUp(0))
+            onScreenCount += UnityEngine.Time.deltaTime;
+            if(onScreenCount > 1.0f && Input.GetMouseButtonUp(0))
             {
                 this.RemoveFromContainer();
-                World world = new World(0);
+                World world = new World(startingLevel);
                 Futile.instance.SignalUpdate += world.Update;
             }
         }

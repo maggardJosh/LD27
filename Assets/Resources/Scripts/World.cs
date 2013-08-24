@@ -27,10 +27,11 @@ public class World
     private Clock clock;
     private EnemyClock enemyClock;
 
-    private int[] enemiesOnLevel = new int[] { 10, 10, 50 };
+    private int[] enemiesOnLevel = new int[] { 30, 30, 40, 40, 1 };
 
     public World(int level)
     {
+        
         this.currentLevelNum = level;
         string levelName = "Maps/map" + level ;
         this.startNumPlayers = enemiesOnLevel[level];
@@ -113,14 +114,23 @@ public class World
 
     public void Update()
     {
-
+        
         enemyClock.percentage = (playerList.Count - 1) / startNumPlayers;
         if (playerList.Count == 1)
         {
             Futile.instance.SignalUpdate -= Update;
             Futile.stage.RemoveAllChildren();
-            World newWorld = new World(++this.currentLevelNum);
-            Futile.instance.SignalUpdate += newWorld.Update;
+            if (this.currentLevelNum + 1 < enemiesOnLevel.Length)
+            {
+
+                World newWorld = new World(++this.currentLevelNum);
+                Futile.instance.SignalUpdate += newWorld.Update;
+            }
+            else
+            {
+                TitleScreen titleScreen = new TitleScreen();
+                Futile.stage.AddChild(titleScreen);
+            }
         }
         for (int ind = 0; ind < powerups.Count; ind++)
         {
