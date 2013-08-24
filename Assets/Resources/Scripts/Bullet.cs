@@ -18,7 +18,7 @@ public class Bullet : FSprite
 
         shadow = new FSprite("bullet");
         shadow.color = new Color(0, 0, 0, .8f);
-        shadow.scale = 2;
+        
 
         this.move = direction;
     }

@@ -13,6 +13,8 @@ public class Player : FAnimatedSprite
     private State state = State.IDLE;
     private bool isControllable;
 
+    float bulletSpeed = 400;
+    float speed = 100;
     private FSprite shadow;
 
     private float lastShoot = 0;
@@ -50,8 +52,6 @@ public class Player : FAnimatedSprite
     public override void Update()
     {
 
-
-        float speed = 100;
         if (isControllable)
         {
             xMove = 0;
@@ -108,9 +108,11 @@ public class Player : FAnimatedSprite
 
                 if (lastShoot >= minShoot)
                 {
-                    float bulletSpeed = 400;
                     lastShoot = 0;
-                    Bullet b = new Bullet(this.GetPosition(), new Vector2(Mathf.Cos((rotation - 90) * C.PIOVER180) * bulletSpeed, -Mathf.Sin((rotation - 90) * C.PIOVER180) * bulletSpeed));
+                    float rotationRadians = -(rotation + 90) * C.PIOVER180;
+                    float xDisp = -5;
+                    float yDisp = -5;
+                    Bullet b = new Bullet(this.GetPosition() + new Vector2(Mathf.Cos(rotationRadians)*xDisp + Mathf.Sin(rotationRadians)*yDisp, -Mathf.Cos(rotationRadians)*yDisp + Mathf.Sin(rotationRadians)*xDisp), new Vector2(Mathf.Cos((rotation - 90) * C.PIOVER180) * bulletSpeed, -Mathf.Sin((rotation - 90) * C.PIOVER180) * bulletSpeed));
                     b.rotation = this.rotation;
                     b.setPlayer(this);
                     world.addBullet(b);
@@ -126,6 +128,7 @@ public class Player : FAnimatedSprite
         base.Update();
     }
 
+    #region moveCode
     private void tryMove()
     {
         if (yMove > 0)
@@ -170,6 +173,7 @@ public class Player : FAnimatedSprite
             x += xMove;
         }
     }
+    #endregion
 
     internal void setWorld(World world)
     {
