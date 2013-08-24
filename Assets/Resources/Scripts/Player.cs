@@ -64,7 +64,7 @@ public class Player : FAnimatedSprite
                 xMove = -(speed * UnityEngine.Time.deltaTime);
             if (Input.GetKey(KeyCode.D))
                 xMove = speed * UnityEngine.Time.deltaTime;
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
                 state = State.SHOOTING;
             else
                 state = State.IDLE;
@@ -75,14 +75,14 @@ public class Player : FAnimatedSprite
         }
         else
         {
-            if (RXRandom.Double() < .1)
+            if (RXRandom.Double() < .03)
             {
                 xMove = (RXRandom.Float() * speed * 2 - speed) * UnityEngine.Time.deltaTime;
                 yMove = (RXRandom.Float() * speed * 2 - speed) * UnityEngine.Time.deltaTime;
 
                 rotation = new Vector2(xMove, yMove).GetAngle() + 90;
             }
-            else if (RXRandom.Double() < .1)
+            else if (RXRandom.Double() < .01)
             {
                 xMove = 0;
                 yMove = 0;
@@ -91,8 +91,7 @@ public class Player : FAnimatedSprite
 
         }
 
-        x += xMove;
-        y += yMove;
+        tryMove();
 
 
 
@@ -127,6 +126,50 @@ public class Player : FAnimatedSprite
         base.Update();
     }
 
+    private void tryMove()
+    {
+        if (yMove > 0)
+            tryMoveUp();
+        else if (yMove < 0)
+            tryMoveDown();
+
+        if (xMove > 0)
+            tryMoveRight();
+        else if (xMove < 0)
+            tryMoveLeft();
+    }
+
+    private void tryMoveUp()
+    {
+        if (world.isWalkable((int)(x / world.Tilemap._tileWidth), (int)(-(y+yMove + height/4) / world.Tilemap._tileHeight)))
+        {
+            y += yMove;
+        }
+    }
+
+    private void tryMoveDown()
+    {
+        if (world.isWalkable((int)(x / world.Tilemap._tileWidth), (int)(-(y + yMove -height/4) / world.Tilemap._tileHeight)))
+        {
+            y += yMove;
+        }
+    }
+
+    private void tryMoveLeft()
+    {
+        if (world.isWalkable((int)((x+xMove - width/4) / world.Tilemap._tileWidth), (int)(-y / world.Tilemap._tileHeight)))
+        {
+            x += xMove;
+        }
+    }
+
+    private void tryMoveRight()
+    {
+        if (world.isWalkable((int)((x + xMove + width / 4) / world.Tilemap._tileWidth), (int)(-y / world.Tilemap._tileHeight)))
+        {
+            x += xMove;
+        }
+    }
 
     internal void setWorld(World world)
     {

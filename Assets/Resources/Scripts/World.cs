@@ -6,14 +6,15 @@ using UnityEngine;
 
 public class World
 {
-    List<Player> playerList = new List<Player>();
-    List<Bullet> bulletList = new List<Bullet>();
-    List<FNode> spawnPoints = new List<FNode>();
+    private List<Player> playerList = new List<Player>();
+    private List<Bullet> bulletList = new List<Bullet>();
+    private List<FNode> spawnPoints = new List<FNode>();
 
-    FTmxMap tmxMap = new FTmxMap();
-    FTilemap tilemap;
+    private FTmxMap tmxMap = new FTmxMap();
+    private FTilemap tilemap;
+    private FContainer playerLayer = new FContainer();
 
-    FContainer playerLayer = new FContainer();
+    public FTilemap Tilemap { get { return tilemap; } }
 
     public World()
     {
@@ -44,6 +45,11 @@ public class World
 
 
         playerLayer.AddChild(tmxMap);
+    }
+
+    public bool isWalkable(int tileX, int tileY)
+    {
+        return tilemap.getFrameNum(tileX, tileY) != 1;
     }
 
     public void addPlayer(Player p)
