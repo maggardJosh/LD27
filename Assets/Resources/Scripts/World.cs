@@ -147,9 +147,9 @@ public class World
                         {
                             float powerupChance = RXRandom.Float();
                             Powerup powerup = null;
-                            if(powerupChance < .9f)
+                            if(powerupChance < .4f)
                                 powerup = new Powerup(Powerup.PowerupType.MACHINEGUN);
-                            else if(powerupChance < .4f)
+                            else if(powerupChance < .8f)
                                 powerup = new Powerup(Powerup.PowerupType.SHOTGUN);
                             if (powerup != null)
                             {
