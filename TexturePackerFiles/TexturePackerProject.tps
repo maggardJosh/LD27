@@ -50,7 +50,7 @@
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>
-        <uint>2</uint>
+        <uint>0</uint>
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
@@ -153,6 +153,7 @@
             <filename>Bullet</filename>
             <filename>Tiles</filename>
             <filename>Powerups</filename>
+            <filename>TitleScren</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

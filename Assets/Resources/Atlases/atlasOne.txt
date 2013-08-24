@@ -2,7 +2,7 @@
 
 "bullet.png":
 {
-	"frame": {"x":58,"y":2,"w":1,"h":2},
+	"frame": {"x":509,"y":134,"w":1,"h":2},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":2,"w":1,"h":2},
@@ -10,7 +10,7 @@
 },
 "clock.png":
 {
-	"frame": {"x":30,"y":30,"w":19,"h":19},
+	"frame": {"x":488,"y":86,"w":19,"h":19},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":19,"h":19},
@@ -18,7 +18,7 @@
 },
 "hair.png":
 {
-	"frame": {"x":23,"y":101,"w":13,"h":11},
+	"frame": {"x":488,"y":239,"w":13,"h":11},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":7,"w":13,"h":11},
@@ -26,7 +26,7 @@
 },
 "player_0.png":
 {
-	"frame": {"x":2,"y":83,"w":15,"h":13},
+	"frame": {"x":488,"y":182,"w":15,"h":13},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":5,"w":15,"h":13},
@@ -34,7 +34,7 @@
 },
 "player_1.png":
 {
-	"frame": {"x":23,"y":78,"w":15,"h":17},
+	"frame": {"x":488,"y":159,"w":15,"h":17},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":1,"w":15,"h":17},
@@ -42,7 +42,7 @@
 },
 "player_2.png":
 {
-	"frame": {"x":2,"y":58,"w":15,"h":19},
+	"frame": {"x":488,"y":134,"w":15,"h":19},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":0,"w":15,"h":19},
@@ -50,7 +50,7 @@
 },
 "player_3.png":
 {
-	"frame": {"x":30,"y":55,"w":17,"h":17},
+	"frame": {"x":488,"y":111,"w":17,"h":17},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":17,"h":17},
@@ -58,23 +58,15 @@
 },
 "powerup_0.png":
 {
-	"frame": {"x":44,"y":97,"w":13,"h":13},
+	"frame": {"x":488,"y":220,"w":13,"h":13},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":3,"w":13,"h":13},
 	"sourceSize": {"w":19,"h":19}
 },
-"powerup_1 - Copy.png":
-{
-	"frame": {"x":7143567,"y":7143620,"w":-14287051,"h":-14287051},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":-14287051,"h":-14287051},
-	"sourceSize": {"w":-1,"h":-1}
-},
 "powerup_1.png":
 {
-	"frame": {"x":44,"y":78,"w":13,"h":13},
+	"frame": {"x":488,"y":201,"w":13,"h":13},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":3,"w":13,"h":13},
@@ -82,7 +74,7 @@
 },
 "tilemapOne_0.png":
 {
-	"frame": {"x":2,"y":30,"w":22,"h":22},
+	"frame": {"x":488,"y":58,"w":22,"h":22},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":22,"h":22},
@@ -90,7 +82,7 @@
 },
 "tilemapOne_1.png":
 {
-	"frame": {"x":30,"y":2,"w":22,"h":22},
+	"frame": {"x":488,"y":30,"w":22,"h":22},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":22,"h":22},
@@ -98,19 +90,27 @@
 },
 "tilemapOne_2.png":
 {
-	"frame": {"x":2,"y":2,"w":22,"h":22},
+	"frame": {"x":488,"y":2,"w":22,"h":22},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":22,"h":22},
 	"sourceSize": {"w":22,"h":22}
+},
+"titleScreen.png":
+{
+	"frame": {"x":2,"y":2,"w":480,"h":300},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":300},
+	"sourceSize": {"w":480,"h":300}
 }},
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker ",
 	"version": "1.0",
 	"image": "atlasOne.png",
 	"format": "RGBA8888",
-	"size": {"w":64,"h":128},
+	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:a5d2e516975e4461e75214d1db63bb8f:1/1$"
+	"smartupdate": "$TexturePacker:SmartUpdate:dc994e762d5d2cda31043ce949bde926:1/1$"
 }
 }

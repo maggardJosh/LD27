@@ -12,6 +12,7 @@ public class World
     private List<Powerup> powerups = new List<Powerup>();
 
     FNode playerSpawn;
+    int currentLevelNum = 0;
 
     float startNumPlayers;
 
@@ -26,9 +27,14 @@ public class World
     private Clock clock;
     private EnemyClock enemyClock;
 
-    public World(int startNumPlayers)
+    private int[] enemiesOnLevel = new int[] { 10, 10 };
+
+    public World(int level)
     {
-        this.startNumPlayers = startNumPlayers;
+        this.currentLevelNum = level;
+        string levelName = "Maps/map" + level ;
+        this.startNumPlayers = enemiesOnLevel[level];
+
         clock = new Clock();
         enemyClock = new EnemyClock();
 
@@ -42,7 +48,7 @@ public class World
 
         Futile.stage.AddChild(playerLayer);
 
-        tmxMap.LoadTMX("Maps/mapOne");
+        tmxMap.LoadTMX(levelName);
         tilemap = (FTilemap)(tmxMap.getLayerNamed("Tilemap"));
         FTilemap objectLayer = (FTilemap)(tmxMap.getLayerNamed("Objects"));
 
@@ -72,14 +78,13 @@ public class World
         tilemap.clipNode = gui;
         Player player = new Player(true);
         gui.follow(player);
-        player.setScale(2.0f, true);
         addPlayer(player);
+        player.setScale(2.0f, true);
 
         for (int ind = 0; ind < startNumPlayers; ind++)
         {
             Player p = new Player();
             addPlayer(p);
-
         }
 
         Futile.stage.AddChild(gui);
@@ -110,6 +115,13 @@ public class World
     {
 
         enemyClock.percentage = (playerList.Count - 1) / startNumPlayers;
+        if (playerList.Count == 1)
+        {
+            Futile.instance.SignalUpdate -= Update;
+            Futile.stage.RemoveAllChildren();
+            World newWorld = new World(++this.currentLevelNum);
+            Futile.instance.SignalUpdate += newWorld.Update;
+        }
         for (int ind = 0; ind < powerups.Count; ind++)
         {
             Powerup powerup = powerups[ind];

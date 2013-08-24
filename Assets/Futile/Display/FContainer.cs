@@ -61,9 +61,12 @@ public class FContainer : FNode
 			int childCount = _childNodes.Count;
 			for(int c = 0; c<childCount; c++)
 			{
-				FNode childNode = _childNodes[c];
-				childNode.HandleRemovedFromStage();	
-				childNode.stage = null;
+                if (_childNodes.Count > c)
+                {
+                    FNode childNode = _childNodes[c];
+                    childNode.HandleRemovedFromStage();
+                    childNode.stage = null;
+                }
 			}
 			
 			if(_shouldSortByZ)
