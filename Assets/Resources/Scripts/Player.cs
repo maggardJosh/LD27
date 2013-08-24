@@ -21,6 +21,7 @@ public class Player : FAnimatedSprite
 
     float bulletSpeed = 400;
     float speed = 100;
+    float controlSpeed = 150;
     private FSprite shadow;
     private FSprite hair;
 
@@ -86,16 +87,17 @@ public class Player : FAnimatedSprite
 
         if (isControllable)
         {
+            
             xMove = 0;
             yMove = 0;
             if (Input.GetKey(KeyCode.W))
-                yMove = speed * UnityEngine.Time.deltaTime;
+                yMove = controlSpeed * UnityEngine.Time.deltaTime;
             if (Input.GetKey(KeyCode.S))
-                yMove = -(speed * UnityEngine.Time.deltaTime);
+                yMove = -(controlSpeed * UnityEngine.Time.deltaTime);
             if (Input.GetKey(KeyCode.A))
-                xMove = -(speed * UnityEngine.Time.deltaTime);
+                xMove = -(controlSpeed * UnityEngine.Time.deltaTime);
             if (Input.GetKey(KeyCode.D))
-                xMove = speed * UnityEngine.Time.deltaTime;
+                xMove = controlSpeed * UnityEngine.Time.deltaTime;
             if (Input.GetMouseButton(0))
                 state = State.SHOOTING;
             else

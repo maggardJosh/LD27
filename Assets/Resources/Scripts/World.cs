@@ -27,7 +27,7 @@ public class World
     private Clock clock;
     private EnemyClock enemyClock;
 
-    private int[] enemiesOnLevel = new int[] { 10, 10 };
+    private int[] enemiesOnLevel = new int[] { 10, 10, 50 };
 
     public World(int level)
     {
