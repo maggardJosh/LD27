@@ -13,6 +13,8 @@ public class Player : FAnimatedSprite
     private State state = State.IDLE;
     private bool isControllable;
 
+    private FSprite shadow;
+
     private float lastShoot = 0;
     private float minShoot = .1f;
 
@@ -23,16 +25,31 @@ public class Player : FAnimatedSprite
     {
         this.isControllable = isControllable;
         addAnimation(new FAnimation("idle", new int[] { 2 }, 300, true));
-        addAnimation(new FAnimation("walk", new int[] { 1,2,3,2 }, 300, true));
+        addAnimation(new FAnimation("walk", new int[] { 1, 2, 3, 2 }, 300, true));
         addAnimation(new FAnimation("shoot", new int[] { 0 }, 100, true));
         play("idle");
+
+        shadow = new FSprite("player_0");
+        shadow.color = new Color(0, 0, 0, .5f);
+    }
+
+    public override void HandleAddedToContainer(FContainer container)
+    {
+        container.AddChild(shadow);
+        base.HandleAddedToContainer(container);
+    }
+
+    public override void HandleRemovedFromContainer()
+    {
+        shadow.RemoveFromContainer();
+        base.HandleRemovedFromContainer();
     }
 
     float xMove = 0;
     float yMove = 0;
     public override void Update()
     {
-        
+
 
         float speed = 100;
         if (isControllable)
@@ -71,7 +88,7 @@ public class Player : FAnimatedSprite
                 yMove = 0;
             }
 
-            
+
         }
 
         x += xMove;
@@ -82,7 +99,7 @@ public class Player : FAnimatedSprite
         if (lastShoot < minShoot)
         {
             lastShoot += UnityEngine.Time.deltaTime;
-        }    
+        }
         switch (state)
         {
             case State.IDLE:
@@ -90,23 +107,22 @@ public class Player : FAnimatedSprite
                 break;
             case State.SHOOTING:
 
-                if (lastShoot < minShoot)
+                if (lastShoot >= minShoot)
                 {
-                  
-                }                                           
-                else                                        
-                {                              
-             
-                    float bulletSpeed = 1000;
+                    float bulletSpeed = 400;
                     lastShoot = 0;
-                    Bullet b = new Bullet(this.GetPosition(), new Vector2(Mathf.Cos((rotation-90) * C.PIOVER180) * bulletSpeed, -Mathf.Sin((rotation-90) * C.PIOVER180) * bulletSpeed));
+                    Bullet b = new Bullet(this.GetPosition(), new Vector2(Mathf.Cos((rotation - 90) * C.PIOVER180) * bulletSpeed, -Mathf.Sin((rotation - 90) * C.PIOVER180) * bulletSpeed));
                     b.rotation = this.rotation;
+                    b.setPlayer(this);
                     world.addBullet(b);
-
                 }
 
                 break;
         }
+
+        shadow.rotation = this.rotation;
+        shadow.SetPosition(this.GetPosition());
+        shadow.y -= 3;
 
         base.Update();
     }

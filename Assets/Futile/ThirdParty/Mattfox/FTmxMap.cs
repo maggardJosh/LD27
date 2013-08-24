@@ -182,6 +182,7 @@ public class FTmxMap : FContainer {
 		
 		// skipZero, if this is true all filled tiles will be drawn without clipping
 		bool skipZero = false;
+        bool drawLayer = true;
 		
 		// do stuff with properties
 		foreach (XMLNode property in properties.children) {
@@ -189,6 +190,10 @@ public class FTmxMap : FContainer {
 			if (property.attributes["name"] == "skipZero") {
 				skipZero = bool.Parse(property.attributes["value"]);
 			}
+            if (property.attributes["name"] == "draw")
+            {
+                drawLayer = bool.Parse(property.attributes["value"]);
+            }
 		}
 		
 		// get text for csv data
@@ -205,7 +210,7 @@ public class FTmxMap : FContainer {
 			tilemap.clipToScreen = true;
 			tilemap.clipNode = _clipNode;
 		}
-		tilemap.LoadText(csvText, skipZero);
+		tilemap.LoadText(csvText, skipZero, drawLayer);
 
 		return tilemap;
 	}
@@ -215,6 +220,7 @@ public class FTmxMap : FContainer {
 		// get id numbers needed
 		int id = int.Parse(node.attributes["gid"]);
 		int firstID = this.getTilesetFirstIDForID(id);
+        firstID = 0;
 		
 		// find parts of source image
 		string baseName = this.getTilesetNameForID(id);

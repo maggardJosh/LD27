@@ -151,6 +151,7 @@
             <filename>Player</filename>
             <filename>Clock</filename>
             <filename>Bullet</filename>
+            <filename>Tiles</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

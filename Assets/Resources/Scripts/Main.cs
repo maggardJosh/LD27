@@ -29,6 +29,8 @@ public class Main : MonoBehaviour
         gui.AddChild(clock);
         gui.follow(player);
 
+        world.setGUI(gui);
+
         Futile.stage.AddChild(gui);
         float randSize = 200;
         for (int ind = 0; ind < 20; ind++)
