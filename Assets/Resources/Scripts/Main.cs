@@ -17,6 +17,10 @@ public class Main : MonoBehaviour
         futileParams.backgroundColor = new Color(.2f, .2f, .2f);
         Futile.instance.Init(futileParams);
         Futile.atlasManager.LoadAtlas("Atlases/atlasOne");
+        Futile.atlasManager.LoadAtlas("Atlases/Fonts");
+        Futile.atlasManager.LoadFont("Small", "Small Font", "Atlases/Small Font", 0, 0);
+
+        
 
         world = new World();
 
@@ -44,6 +48,7 @@ public class Main : MonoBehaviour
         }
         Futile.instance.SignalUpdate += world.Update;
 
+        
     }
 
     // Update is called once per frame
