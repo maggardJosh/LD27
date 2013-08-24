@@ -18,6 +18,7 @@ public class Main : MonoBehaviour
         Futile.atlasManager.LoadAtlas("Atlases/atlasOne");
         Futile.atlasManager.LoadAtlas("Atlases/Fonts");
         Futile.atlasManager.LoadFont("Small", "Small Font", "Atlases/Small Font", 0, 0);
+        Futile.atlasManager.LoadFont("Large", "Large Font", "Atlases/Large Font", 0, 0);
 
         TitleScreen titleScreen = new TitleScreen();
         Futile.stage.AddChild(titleScreen);

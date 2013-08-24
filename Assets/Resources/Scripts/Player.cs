@@ -209,8 +209,8 @@ public class Player : FAnimatedSprite
                 break;
             case Powerup.PowerupType.MACHINEGUN:
                 rotationRadians = -(rotation + 90) * C.PIOVER180;
-                xDisp = -10;
-                yDisp = -7;
+                xDisp = -12;
+                yDisp = -12;
                  randomAngle = 6;
                 for (int x = 0; x < 1; x++)
                 {

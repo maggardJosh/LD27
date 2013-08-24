@@ -27,7 +27,10 @@ public class World
     private Clock clock;
     private EnemyClock enemyClock;
 
-    private int[] enemiesOnLevel = new int[] { 30, 30, 40, 40, 1 };
+    float beginTime = 1.0f;             //Give the player 1 second for free at the beginning
+    float beginCount = 0;
+
+    private int[] enemiesOnLevel = new int[] { 30, 30, 40, 40, 40 };
 
     public World(int level)
     {
@@ -114,7 +117,11 @@ public class World
 
     public void Update()
     {
-        
+        if (beginCount < beginTime)
+        {
+            beginCount += UnityEngine.Time.deltaTime;
+            clock.percentage = 1.0f;
+        }
         enemyClock.percentage = (playerList.Count - 1) / startNumPlayers;
         if (playerList.Count == 1)
         {

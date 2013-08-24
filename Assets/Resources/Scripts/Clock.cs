@@ -25,7 +25,7 @@ public class Clock : FRadialWipeSprite
         clockBackground = new FSprite("clock");
         clockBackground.SetPosition(GetPosition());
         label.x = x;
-        label.y = y - height/2 * tickScale / 2;
+        label.y = y - height / 2 * tickScale / 2;
 
     }
 
@@ -57,10 +57,10 @@ public class Clock : FRadialWipeSprite
     {
         timeLabel.MoveToFront();
         percentage -= UnityEngine.Time.deltaTime * .1f;
-        if (Mathf.FloorToInt(percentage * 10) != lastSecond)
+        if (Mathf.CeilToInt(percentage * 10) != lastSecond)
         {
-            lastSecond = Mathf.FloorToInt(percentage * 10);
-            timeLabel.text =""+ lastSecond;
+            lastSecond = Mathf.CeilToInt(percentage * 10);
+            timeLabel.text = "" + lastSecond;
             this.scale = tickScale;
         }
         else
@@ -72,13 +72,13 @@ public class Clock : FRadialWipeSprite
 
 
         if (this.percentage < .3f)
-            this.color = new Color(percentage*3, 0, 0);
+            this.color = new Color(percentage * 3, 0, 0);
         else if (this.percentage < .5f)
             this.color = new Color(percentage * 2, percentage * 2, 0);
         else
-            this.color = new Color( 1.0f - percentage, percentage*2,0);
+            this.color = new Color(1.0f - percentage, percentage * 2, 0);
 
         clockBackground.scale = this.scale;
-        
+
     }
 }
