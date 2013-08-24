@@ -1,8 +1,16 @@
 {"frames": {
 
+"clock.png":
+{
+	"frame": {"x":2,"y":90,"w":19,"h":19},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":19,"h":19},
+	"sourceSize": {"w":19,"h":19}
+},
 "player_0.png":
 {
-	"frame": {"x":24,"y":24,"w":20,"h":20},
+	"frame": {"x":2,"y":68,"w":20,"h":20},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":20},
@@ -10,7 +18,7 @@
 },
 "player_1.png":
 {
-	"frame": {"x":24,"y":2,"w":20,"h":20},
+	"frame": {"x":2,"y":46,"w":20,"h":20},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":20},
@@ -37,8 +45,8 @@
 	"version": "1.0",
 	"image": "atlasOne.png",
 	"format": "RGBA8888",
-	"size": {"w":64,"h":64},
+	"size": {"w":32,"h":128},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:12f4260d6704f54cd5350c42fd9d1d48:1/1$"
+	"smartupdate": "$TexturePacker:SmartUpdate:3314176f90a1084dd181d05274cb0435:1/1$"
 }
 }

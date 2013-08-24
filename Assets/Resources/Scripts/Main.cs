@@ -2,8 +2,11 @@ using UnityEngine;
 using System.Collections;
 
 public class Main : MonoBehaviour {
-     FAnimatedSprite sprite;
+    Player player;
+    
      FRadialWipeSprite clock;
+     float clockMargin = 5;
+     FContainer playerLayer;
 	// Use this for initialization
 	void Start () {
 
@@ -20,31 +23,32 @@ public class Main : MonoBehaviour {
         Futile.atlasManager.LoadAtlas("Atlases/atlasOne");
 
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        
+        playerLayer = new FContainer();
+        player = new Player();
+        Futile.instance.SignalUpdate += player.Update;
 
-        sprite = new FAnimatedSprite("player");
-        sprite.addAnimation(new FAnimation("idle", new int[] { 0, 1, 2, 3, 2, 1 }, 100, true));
-        Futile.stage.AddChild(sprite);
+        playerLayer.AddChild(player);
 
-        clock = new FRadialWipeSprite("player_2", true, 0, .5f);
+        Futile.stage.AddChild(playerLayer);
 
-        Futile.stage.AddChild(clock);
+        clock = new FRadialWipeSprite("clock", true, 0, 1.0f);
+        clock.x = Futile.screen.halfWidth - clock.width/2 - clockMargin;
+        clock.y = Futile.screen.halfHeight - clock.height/2 - clockMargin;
 
 
+        FCamObject gui = new FCamObject();
+        gui.AddChild(clock);
+        gui.follow(player);
+
+        Futile.stage.AddChild(gui);
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        float speed = 1000;
-        if (Input.GetKey(KeyCode.W))
-            sprite.y += speed * UnityEngine.Time.deltaTime;
-        if (Input.GetKey(KeyCode.S))
-            sprite.y -= speed * UnityEngine.Time.deltaTime;
-        if (Input.GetKey(KeyCode.A))
-            sprite.x -= speed * UnityEngine.Time.deltaTime;
-        if (Input.GetKey(KeyCode.D))
-            sprite.x += speed * UnityEngine.Time.deltaTime;
+
 
         clock.percentage -= UnityEngine.Time.deltaTime * .1f;
         if (clock.percentage <= 0)

@@ -149,6 +149,7 @@
         <key>fileList</key>
         <array>
             <filename>Player</filename>
+            <filename>Clock</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
