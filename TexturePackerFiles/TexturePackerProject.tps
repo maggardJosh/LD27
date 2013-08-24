@@ -10,7 +10,7 @@
         <key>autoSDSettings</key>
         <array/>
         <key>allowRotation</key>
-        <true/>
+        <false/>
         <key>quiet</key>
         <false/>
         <key>premultiplyAlpha</key>
@@ -138,7 +138,7 @@
             <key>innerPadding</key>
             <uint>0</uint>
             <key>extrude</key>
-            <uint>0</uint>
+            <uint>2</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMode</key>
@@ -150,6 +150,7 @@
         <array>
             <filename>Player</filename>
             <filename>Clock</filename>
+            <filename>Bullet</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

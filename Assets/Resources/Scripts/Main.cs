@@ -1,40 +1,28 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class Main : MonoBehaviour {
-    Player player;
-    
-     FRadialWipeSprite clock;
-     float clockMargin = 5;
-     FContainer playerLayer;
-	// Use this for initialization
-	void Start () {
+public class Main : MonoBehaviour
+{
+    World world;
+    Clock clock;
+
+    // Use this for initialization
+    void Start()
+    {
 
         FutileParams futileParams = new FutileParams(true, false, false, false);
-
-        futileParams.AddResolutionLevel(240, 1.0f, 1.0f, "");
-
+        futileParams.AddResolutionLevel(480, 1.0f, 1.0f, "");
         futileParams.origin = new Vector2(0.5f, 0.5f);
-
         futileParams.backgroundColor = new Color(.2f, .2f, .2f);
-
         Futile.instance.Init(futileParams);
-
         Futile.atlasManager.LoadAtlas("Atlases/atlasOne");
 
-        Screen.sleepTimeout = SleepTimeout.NeverSleep;
-        
-        playerLayer = new FContainer();
-        player = new Player();
-        Futile.instance.SignalUpdate += player.Update;
+        world = new World();
 
-        playerLayer.AddChild(player);
-
-        Futile.stage.AddChild(playerLayer);
-
-        clock = new FRadialWipeSprite("clock", true, 0, 1.0f);
-        clock.x = Futile.screen.halfWidth - clock.width/2 - clockMargin;
-        clock.y = Futile.screen.halfHeight - clock.height/2 - clockMargin;
+        clock = new Clock();
+        Player player = new Player(true);
+        world.addPlayer(player);
 
 
         FCamObject gui = new FCamObject();
@@ -42,17 +30,23 @@ public class Main : MonoBehaviour {
         gui.follow(player);
 
         Futile.stage.AddChild(gui);
+        float randSize = 200;
+        for (int ind = 0; ind < 20; ind++)
+        {
+            Player p = new Player();
+            p.x = RXRandom.Float() * randSize * 2 - randSize;
+            p.y = RXRandom.Float() * randSize * 2 - randSize;
+            world.addPlayer(p);
+            
+        }
+        Futile.instance.SignalUpdate += world.Update;
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
 
-
-        clock.percentage -= UnityEngine.Time.deltaTime * .1f;
-        if (clock.percentage <= 0)
-            clock.percentage = 1.0f;
-
-	}
+       
+    }
 }

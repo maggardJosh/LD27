@@ -7,6 +7,7 @@ public class FAnimatedSprite : FSprite {
 	protected bool _pause = false;
 	protected float _time = 0;
 	protected int _currentFrame = 0;
+    public bool isStopped = false;
 	
 	protected string _baseName;
 	protected string _baseExtension;
@@ -53,10 +54,13 @@ public class FAnimatedSprite : FSprite {
 				if (_currentFrame >= _currentAnim.totalFrames) {
 					if (_currentAnim.looping) {
 						_currentFrame = 0;
+                        
+                    isStopped = false;
 					} else {
 						_currentFrame = _currentAnim.totalFrames - 1;
+                        isStopped = true;
+                        RXDebug.Log("Finished anim");
 					}
-					
 					// send Signal if it exists
 					//_currentAnim.checkFinished();
                     
@@ -80,6 +84,7 @@ public class FAnimatedSprite : FSprite {
 	}
 	
 	public void play(string animName, bool forced=false) {
+                isStopped = false;
 		// check if we are given the same animation that is currently playing
 		if (_currentAnim.name == animName) {
 			if (forced) {
