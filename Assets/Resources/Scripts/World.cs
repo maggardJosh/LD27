@@ -16,6 +16,8 @@ public class World
 
     public FTilemap Tilemap { get { return tilemap; } }
 
+    private Clock clock;
+
     public World()
     {
 
@@ -36,7 +38,7 @@ public class World
                     case 10:
                         FNode newSpawn = new FNode();
                         newSpawn.x = xInd * tilemap._tileWidth + tilemap._tileWidth / 2;
-                        newSpawn.y = -yInd * tilemap._tileHeight + tilemap._tileHeight / 2;
+                        newSpawn.y = -yInd * tilemap._tileHeight - tilemap._tileHeight / 2;
                         spawnPoints.Add(newSpawn);
                         break;
                 }
@@ -78,6 +80,7 @@ public class World
                     playerList.Remove(p);
                     ind--;
                     playerInd--;
+                    clock.percentage += .25f;
                 }
                 else
                     if (tilemap.getFrameNum((int)(b.x / tilemap._tileWidth), (int)(-b.y / tilemap._tileHeight)) == 1)
@@ -99,5 +102,10 @@ public class World
     internal void setGUI(FCamObject gui)
     {
         tilemap.clipNode = gui;
+    }
+
+    internal void setClock(Clock clock)
+    {
+        this.clock = clock;
     }
 }

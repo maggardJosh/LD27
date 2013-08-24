@@ -30,6 +30,7 @@ public class Main : MonoBehaviour
         gui.follow(player);
 
         world.setGUI(gui);
+        world.setClock(clock);
 
         Futile.stage.AddChild(gui);
         float randSize = 200;
