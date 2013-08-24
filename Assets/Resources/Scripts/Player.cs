@@ -181,6 +181,7 @@ public class Player : FAnimatedSprite
         switch (powerUpType)
         {
             case Powerup.PowerupType.NONE:
+        FSoundManager.PlaySound("shoot 1", .3f);
                 float rotationRadians = -(rotation + 90) * C.PIOVER180;
                 float xDisp = -10;
                 float yDisp = -8;
@@ -194,6 +195,7 @@ public class Player : FAnimatedSprite
                 }
                 break;
             case Powerup.PowerupType.SHOTGUN:
+                FSoundManager.PlaySound("shoot", .2f);
                 rotationRadians = -(rotation + 90) * C.PIOVER180;
                 xDisp = -20;
                 yDisp = -5;
@@ -208,6 +210,7 @@ public class Player : FAnimatedSprite
                 }
                 break;
             case Powerup.PowerupType.MACHINEGUN:
+                FSoundManager.PlaySound("shoot", .1f);
                 rotationRadians = -(rotation + 90) * C.PIOVER180;
                 xDisp = -12;
                 yDisp = -12;

@@ -34,6 +34,8 @@ public class World
 
     public World(int level)
     {
+
+        
         
         this.currentLevelNum = level;
         string levelName = "Maps/map" + level ;
@@ -147,6 +149,7 @@ public class World
                 if(p.isControlled)
                 if (powerup.checkCollision(p))
                 {
+                    FSoundManager.PlaySound("powerup");
                     p.collectPowerUp(powerup.PType);
                     powerup.RemoveFromContainer();
                     powerups.Remove(powerup);
@@ -166,6 +169,7 @@ public class World
                     p.setScale(p.scale - 1.0f, false);
                     if (p.scale <= 0)
                     {
+                        FSoundManager.PlaySound("dead");
                         p.RemoveFromContainer();
                         playerList.Remove(p);
                         playerInd--;
@@ -176,9 +180,9 @@ public class World
                         {
                             float powerupChance = RXRandom.Float();
                             Powerup powerup = null;
-                            if(powerupChance < .4f)
+                            if (powerupChance < .4f)
                                 powerup = new Powerup(Powerup.PowerupType.MACHINEGUN);
-                            else if(powerupChance < .8f)
+                            else if (powerupChance < .8f)
                                 powerup = new Powerup(Powerup.PowerupType.SHOTGUN);
                             if (powerup != null)
                             {
@@ -187,6 +191,11 @@ public class World
                                 playerLayer.AddChild(powerup);
                             }
                         }
+                    }
+                    else
+                    {
+                        FSoundManager.PlaySound("hit");
+
                     }
                     b.RemoveFromContainer();
                     bulletList.Remove(b);
