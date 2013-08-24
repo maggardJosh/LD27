@@ -11,9 +11,11 @@ public class Clock : FRadialWipeSprite
     protected float tickScale = 5.0f;
     protected FLabel timeLabel;
     protected FSprite clockBackground;
+    protected FLabel label;
     public Clock()
         : base("clock", true, 0, 1.0f)
     {
+        label = new FLabel("Small", "Time Left");
         timeLabel = new FLabel("Small", "10");
         timeLabel.color = Color.black;
         x = Futile.screen.halfWidth - width * tickScale / 2 - clockMargin;
@@ -22,6 +24,8 @@ public class Clock : FRadialWipeSprite
         this.scale = normalScale;
         clockBackground = new FSprite("clock");
         clockBackground.SetPosition(GetPosition());
+        label.x = x;
+        label.y = y - height/2 * tickScale / 2;
 
     }
 
@@ -30,6 +34,7 @@ public class Clock : FRadialWipeSprite
         container.AddChild(clockBackground);
         container.AddChild(timeLabel);
         base.HandleAddedToContainer(container);
+        container.AddChild(label);
     }
     public override void HandleAddedToStage()
     {
@@ -43,6 +48,7 @@ public class Clock : FRadialWipeSprite
         Futile.instance.SignalUpdate -= Update;
         timeLabel.RemoveFromContainer();
         base.HandleRemovedFromStage();
+        label.RemoveFromContainer();
     }
 
     int lastSecond = 10;

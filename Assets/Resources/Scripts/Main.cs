@@ -20,17 +20,9 @@ public class Main : MonoBehaviour
         Futile.atlasManager.LoadFont("Small", "Small Font", "Atlases/Small Font", 0, 0);
         
 
-        world = new World();
-
+        world = new World(100);
         
-
-        
-        for (int ind = 0; ind < 100; ind++)
-        {
-            Player p = new Player();
-            world.addPlayer(p);
-            
-        }
+       
         Futile.instance.SignalUpdate += world.Update;
         
     }

@@ -39,6 +39,8 @@ public class Player : FAnimatedSprite
         addAnimation(new FAnimation("idle", new int[] { 0 }, 100, true));
         addAnimation(new FAnimation("pistol", new int[] { 1 }, 100, true));
         addAnimation(new FAnimation("shotgun", new int[] { 2 }, 100, true));
+        addAnimation(new FAnimation("machinegun", new int[] { 3 }, 100, true));
+
 
             powerupClock = new PowerupClock();
         if (isControllable)
@@ -94,7 +96,7 @@ public class Player : FAnimatedSprite
                 xMove = -(speed * UnityEngine.Time.deltaTime);
             if (Input.GetKey(KeyCode.D))
                 xMove = speed * UnityEngine.Time.deltaTime;
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0))
                 state = State.SHOOTING;
             else
                 state = State.IDLE;
@@ -138,7 +140,7 @@ public class Player : FAnimatedSprite
                 break;
             case State.SHOOTING:
 
-                if (lastShoot >= minShoot)
+                if (lastShoot >= minShoot || (powerUpType == Powerup.PowerupType.MACHINEGUN && lastShoot >= minShoot*.05f))
                 {
                     lastShoot = 0;
 
@@ -156,6 +158,9 @@ public class Player : FAnimatedSprite
                 break;
             case Powerup.PowerupType.SHOTGUN:
                 play("shotgun");
+                break;
+            case Powerup.PowerupType.MACHINEGUN:
+                play("machinegun");
                 break;
         }
 
@@ -192,6 +197,20 @@ public class Player : FAnimatedSprite
                 yDisp = -5;
                 float randomAngle = 20;
                 for (int x = 0; x < 5; x++)
+                {
+                    float directionRotation = (rotation - 90 + RXRandom.Float() * randomAngle * 2 - randomAngle) * C.PIOVER180;
+                    Bullet b = new Bullet(this.GetPosition() + new Vector2(Mathf.Cos(rotationRadians) * xDisp + Mathf.Sin(rotationRadians) * yDisp, -Mathf.Cos(rotationRadians) * yDisp + Mathf.Sin(rotationRadians) * xDisp), new Vector2(Mathf.Cos(directionRotation) * bulletSpeed, -Mathf.Sin(directionRotation) * bulletSpeed));
+                    b.rotation = directionRotation * C.PIOVER180_INV + 90;
+                    b.setPlayer(this);
+                    result.Add(b);
+                }
+                break;
+            case Powerup.PowerupType.MACHINEGUN:
+                rotationRadians = -(rotation + 90) * C.PIOVER180;
+                xDisp = -10;
+                yDisp = -7;
+                 randomAngle = 6;
+                for (int x = 0; x < 1; x++)
                 {
                     float directionRotation = (rotation - 90 + RXRandom.Float() * randomAngle * 2 - randomAngle) * C.PIOVER180;
                     Bullet b = new Bullet(this.GetPosition() + new Vector2(Mathf.Cos(rotationRadians) * xDisp + Mathf.Sin(rotationRadians) * yDisp, -Mathf.Cos(rotationRadians) * yDisp + Mathf.Sin(rotationRadians) * xDisp), new Vector2(Mathf.Cos(directionRotation) * bulletSpeed, -Mathf.Sin(directionRotation) * bulletSpeed));

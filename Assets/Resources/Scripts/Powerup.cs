@@ -8,7 +8,8 @@ public class Powerup : FAnimatedSprite
     public enum PowerupType
     {
         NONE,
-        SHOTGUN
+        SHOTGUN,
+        MACHINEGUN
     }
 
     PowerupType type;
@@ -18,10 +19,14 @@ public class Powerup : FAnimatedSprite
     {
         this.type = type;
         addAnimation(new FAnimation("shotgun", new int[] { 0 }, 100, true));
+        addAnimation(new FAnimation("machinegun", new int[] { 1 }, 100, true));
         switch(type)
         {
             case PowerupType.SHOTGUN:
                 play("shotgun");
+                break;
+            case PowerupType.MACHINEGUN:
+                play("machinegun");
                 break;
             case PowerupType.NONE:
                 //What are we doing here? THis should never happen

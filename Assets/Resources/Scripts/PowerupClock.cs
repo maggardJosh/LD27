@@ -10,11 +10,14 @@ public class PowerupClock : Clock
     public PowerupClock()
         : base()
     {
-        this.x = -Futile.screen.halfWidth + this.clockMargin + (width * tickScale) / 2;
+        this.x = -Futile.screen.halfWidth + clockBackground.width*tickScale/2;
 
         timeLabel.SetPosition(this.GetPosition());
         clockBackground.SetPosition(GetPosition());
         timeLabel.isVisible = false;
+        label.x = this.x;
+
+        label.text = "Powerup Left";
     }
 
     public void setPowerUpType(Powerup.PowerupType powerupType)

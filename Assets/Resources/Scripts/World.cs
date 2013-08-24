@@ -13,6 +13,8 @@ public class World
 
     FNode playerSpawn;
 
+    float startNumPlayers;
+
     private FTmxMap tmxMap = new FTmxMap();
     private FTilemap tilemap;
     private FContainer playerLayer = new FContainer();
@@ -20,28 +22,22 @@ public class World
     public FTilemap Tilemap { get { return tilemap; } }
 
     public FCamObject gui;
-    public FLabel enemiesLeft;
 
     private Clock clock;
+    private EnemyClock enemyClock;
 
-    public World()
+    public World(int startNumPlayers)
     {
+        this.startNumPlayers = startNumPlayers;
         clock = new Clock();
+        enemyClock = new EnemyClock();
 
         FCamObject gui = new FCamObject();
         gui.AddChild(clock);
+        gui.AddChild(enemyClock);
 
-        Timer timer = new Timer();
-        gui.AddChild(timer);
-
-        
-
-        
-        enemiesLeft = new FLabel("Small", "Enemies Left: 0000");
-        enemiesLeft.y = Futile.screen.halfHeight - 20;
         this.gui = gui;
 
-        gui.AddChild(enemiesLeft);
         setClock(clock);
 
         Futile.stage.AddChild(playerLayer);
@@ -78,6 +74,14 @@ public class World
         gui.follow(player);
         player.setScale(2.0f, true);
         addPlayer(player);
+
+        for (int ind = 0; ind < startNumPlayers; ind++)
+        {
+            Player p = new Player();
+            addPlayer(p);
+
+        }
+
         Futile.stage.AddChild(gui);
     }
 
@@ -93,9 +97,9 @@ public class World
         else
             p.SetPosition(spawnPoints[RXRandom.Int(spawnPoints.Count)].GetPosition());
         float scaleChance = RXRandom.Float();
-        if (scaleChance < .1f)
+        if (scaleChance < .15f)
             p.setScale(3.0f);
-        else if (scaleChance < .3f)
+        else if (scaleChance < .4f)
             p.setScale(2.0f);
         playerLayer.AddChild(p);
         playerList.Add(p);
@@ -104,8 +108,8 @@ public class World
 
     public void Update()
     {
-        string enemiesLeftString = String.Format("{0:0000}", playerList.Count - 1);
-        enemiesLeft.text = "Enemies Left: " + enemiesLeftString;
+
+        enemyClock.percentage = (playerList.Count - 1) / startNumPlayers;
         for (int ind = 0; ind < powerups.Count; ind++)
         {
             Powerup powerup = powerups[ind];
@@ -138,13 +142,21 @@ public class World
                         playerInd--;
                         FloatIndicator floatInd = new FloatIndicator("+00:00:0" + p.secondValue, p.GetPosition());
                         playerLayer.AddChild(floatInd);
-                        clock.percentage += p.secondValue / 10.0f;
+                        clock.percentage += p.secondValue / 10.0f;      //Add the seconds to the clock
                         if (p.secondValue == 3)
                         {
-                            Powerup powerup = new Powerup(Powerup.PowerupType.SHOTGUN);
-                            powerups.Add(powerup);
-                            powerup.SetPosition(p.GetPosition());
-                            playerLayer.AddChild(powerup);
+                            float powerupChance = RXRandom.Float();
+                            Powerup powerup = null;
+                            if(powerupChance < .9f)
+                                powerup = new Powerup(Powerup.PowerupType.MACHINEGUN);
+                            else if(powerupChance < .4f)
+                                powerup = new Powerup(Powerup.PowerupType.SHOTGUN);
+                            if (powerup != null)
+                            {
+                                powerups.Add(powerup);
+                                powerup.SetPosition(p.GetPosition());
+                                playerLayer.AddChild(powerup);
+                            }
                         }
                     }
                     b.RemoveFromContainer();
