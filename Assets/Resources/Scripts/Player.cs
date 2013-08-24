@@ -10,41 +10,71 @@ public class Player : FAnimatedSprite
     {
         IDLE, SHOOTING
     }
+
     private State state = State.IDLE;
     private bool isControllable;
+    public int secondValue = 1;
+
+    private Powerup.PowerupType powerUpType = Powerup.PowerupType.NONE;
+
+    public bool isControlled { get { return isControllable; } }
 
     float bulletSpeed = 400;
     float speed = 100;
     private FSprite shadow;
+    private FSprite hair;
 
     private float lastShoot = 0;
-    private float minShoot = .1f;
+    private float minShoot = .4f;
 
     private World world;
+
+    private PowerupClock powerupClock;
 
     public Player(bool isControllable = false)
         : base("player")
     {
+        hair = new FSprite("hair");
         this.isControllable = isControllable;
-        addAnimation(new FAnimation("idle", new int[] { 2 }, 300, true));
-        addAnimation(new FAnimation("walk", new int[] { 1, 2, 3, 2 }, 300, true));
-        addAnimation(new FAnimation("shoot", new int[] { 0 }, 100, true));
-        play("idle");
+        addAnimation(new FAnimation("idle", new int[] { 0 }, 100, true));
+        addAnimation(new FAnimation("pistol", new int[] { 1 }, 100, true));
+        addAnimation(new FAnimation("shotgun", new int[] { 2 }, 100, true));
 
-        shadow = new FSprite("player_0");
+            powerupClock = new PowerupClock();
+        if (isControllable)
+        {
+            play("pistol");
+            shadow = new FSprite("player_1");
+            hair.color = Color.black;
+
+            powerupClock.percentage = 0;
+        }
+        else
+        {
+            play("idle");
+            hair.color = new Color(RXRandom.Float() * .5f, RXRandom.Float() * .5f, RXRandom.Float() * .5f);
+            float randomColorMult = .5f + RXRandom.Float() * .5f;
+            this.color = new Color(randomColorMult, randomColorMult, randomColorMult);
+            shadow = new FSprite("player_0");
+        }
+
         shadow.color = new Color(0, 0, 0, .5f);
+
+
     }
 
     public override void HandleAddedToContainer(FContainer container)
     {
         container.AddChild(shadow);
         base.HandleAddedToContainer(container);
+        container.AddChild(hair);
     }
 
     public override void HandleRemovedFromContainer()
     {
         shadow.RemoveFromContainer();
         base.HandleRemovedFromContainer();
+        hair.RemoveFromContainer();
     }
 
     float xMove = 0;
@@ -93,7 +123,10 @@ public class Player : FAnimatedSprite
 
         tryMove();
 
-
+        if (this.powerupClock.percentage <= 0 && this.powerUpType != Powerup.PowerupType.NONE)
+        {
+            collectPowerUp(Powerup.PowerupType.NONE);
+        }
 
         if (lastShoot < minShoot)
         {
@@ -102,30 +135,73 @@ public class Player : FAnimatedSprite
         switch (state)
         {
             case State.IDLE:
-                play("shoot");
                 break;
             case State.SHOOTING:
 
                 if (lastShoot >= minShoot)
                 {
                     lastShoot = 0;
-                    float rotationRadians = -(rotation + 90) * C.PIOVER180;
-                    float xDisp = -5;
-                    float yDisp = -5;
-                    Bullet b = new Bullet(this.GetPosition() + new Vector2(Mathf.Cos(rotationRadians)*xDisp + Mathf.Sin(rotationRadians)*yDisp, -Mathf.Cos(rotationRadians)*yDisp + Mathf.Sin(rotationRadians)*xDisp), new Vector2(Mathf.Cos((rotation - 90) * C.PIOVER180) * bulletSpeed, -Mathf.Sin((rotation - 90) * C.PIOVER180) * bulletSpeed));
-                    b.rotation = this.rotation;
-                    b.setPlayer(this);
-                    world.addBullet(b);
+
+                    foreach (Bullet b in shootBullet())
+                        world.addBullet(b);
                 }
 
+                break;
+        }
+
+        switch (this.powerUpType)
+        {
+            case Powerup.PowerupType.NONE:
+                play("pistol");
+                break;
+            case Powerup.PowerupType.SHOTGUN:
+                play("shotgun");
                 break;
         }
 
         shadow.rotation = this.rotation;
         shadow.SetPosition(this.GetPosition());
         shadow.y -= 3;
+        hair.SetPosition(this.GetPosition());
+        hair.rotation = this.rotation;
 
         base.Update();
+    }
+
+    private List<Bullet> shootBullet()
+    {
+        List<Bullet> result = new List<Bullet>();
+        switch (powerUpType)
+        {
+            case Powerup.PowerupType.NONE:
+                float rotationRadians = -(rotation + 90) * C.PIOVER180;
+                float xDisp = -10;
+                float yDisp = -8;
+                for (int x = 0; x < 1; x++)
+                {
+                    float directionRotation = (rotation - 90 + RXRandom.Float()) * C.PIOVER180;
+                    Bullet b = new Bullet(this.GetPosition() + new Vector2(Mathf.Cos(rotationRadians) * xDisp + Mathf.Sin(rotationRadians) * yDisp, -Mathf.Cos(rotationRadians) * yDisp + Mathf.Sin(rotationRadians) * xDisp), new Vector2(Mathf.Cos(directionRotation) * bulletSpeed, -Mathf.Sin(directionRotation) * bulletSpeed));
+                    b.rotation = directionRotation * C.PIOVER180_INV + 90;
+                    b.setPlayer(this);
+                    result.Add(b);
+                }
+                break;
+            case Powerup.PowerupType.SHOTGUN:
+                rotationRadians = -(rotation + 90) * C.PIOVER180;
+                xDisp = -20;
+                yDisp = -5;
+                float randomAngle = 20;
+                for (int x = 0; x < 5; x++)
+                {
+                    float directionRotation = (rotation - 90 + RXRandom.Float() * randomAngle * 2 - randomAngle) * C.PIOVER180;
+                    Bullet b = new Bullet(this.GetPosition() + new Vector2(Mathf.Cos(rotationRadians) * xDisp + Mathf.Sin(rotationRadians) * yDisp, -Mathf.Cos(rotationRadians) * yDisp + Mathf.Sin(rotationRadians) * xDisp), new Vector2(Mathf.Cos(directionRotation) * bulletSpeed, -Mathf.Sin(directionRotation) * bulletSpeed));
+                    b.rotation = directionRotation * C.PIOVER180_INV + 90;
+                    b.setPlayer(this);
+                    result.Add(b);
+                }
+                break;
+        }
+        return result;
     }
 
     #region moveCode
@@ -144,7 +220,7 @@ public class Player : FAnimatedSprite
 
     private void tryMoveUp()
     {
-        if (world.isWalkable((int)(x / world.Tilemap._tileWidth), (int)(-(y+yMove + height/4) / world.Tilemap._tileHeight)))
+        if (world.isWalkable((int)(x / world.Tilemap._tileWidth), (int)(-(y + yMove + height / 4) / world.Tilemap._tileHeight)))
         {
             y += yMove;
         }
@@ -152,7 +228,7 @@ public class Player : FAnimatedSprite
 
     private void tryMoveDown()
     {
-        if (world.isWalkable((int)(x / world.Tilemap._tileWidth), (int)(-(y + yMove -height/4) / world.Tilemap._tileHeight)))
+        if (world.isWalkable((int)(x / world.Tilemap._tileWidth), (int)(-(y + yMove - height / 4) / world.Tilemap._tileHeight)))
         {
             y += yMove;
         }
@@ -160,7 +236,7 @@ public class Player : FAnimatedSprite
 
     private void tryMoveLeft()
     {
-        if (world.isWalkable((int)((x+xMove - width/4) / world.Tilemap._tileWidth), (int)(-y / world.Tilemap._tileHeight)))
+        if (world.isWalkable((int)((x + xMove - width / 4) / world.Tilemap._tileWidth), (int)(-y / world.Tilemap._tileHeight)))
         {
             x += xMove;
         }
@@ -178,6 +254,26 @@ public class Player : FAnimatedSprite
     internal void setWorld(World world)
     {
         this.world = world;
+        if(this.isControllable)
+        world.gui.AddChild(powerupClock);
+
+        hair.MoveToFront();
+    }
+
+    internal void setScale(float newScale, bool setValue = true)
+    {
+        if (setValue)
+            this.secondValue = (int)newScale;
+        this.scale = newScale;
+        this.shadow.scale = newScale;
+        this.hair.scale = newScale;
+
+    }
+
+    internal void collectPowerUp(Powerup.PowerupType powerupType)
+    {
+        this.powerUpType = powerupType;
+        this.powerupClock.setPowerUpType(powerupType);
     }
 }
 

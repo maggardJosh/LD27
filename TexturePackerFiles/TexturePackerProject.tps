@@ -152,6 +152,7 @@
             <filename>Clock</filename>
             <filename>Bullet</filename>
             <filename>Tiles</filename>
+            <filename>Powerups</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

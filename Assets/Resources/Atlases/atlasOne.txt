@@ -16,7 +16,23 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":19,"h":19},
 	"sourceSize": {"w":19,"h":19}
 },
+"hair.png":
+{
+	"frame": {"x":4,"y":83,"w":13,"h":11},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":7,"w":13,"h":11},
+	"sourceSize": {"w":19,"h":19}
+},
 "player_0.png":
+{
+	"frame": {"x":25,"y":82,"w":15,"h":13},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":5,"w":15,"h":13},
+	"sourceSize": {"w":19,"h":19}
+},
+"player_1.png":
 {
 	"frame": {"x":4,"y":60,"w":15,"h":17},
 	"rotated": false,
@@ -24,36 +40,28 @@
 	"spriteSourceSize": {"x":2,"y":1,"w":15,"h":17},
 	"sourceSize": {"w":19,"h":19}
 },
-"player_1.png":
-{
-	"frame": {"x":4,"y":102,"w":15,"h":13},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":4,"w":15,"h":13},
-	"sourceSize": {"w":19,"h":19}
-},
 "player_2.png":
 {
-	"frame": {"x":4,"y":83,"w":15,"h":13},
+	"frame": {"x":32,"y":57,"w":15,"h":19},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":5,"w":15,"h":13},
+	"spriteSourceSize": {"x":2,"y":0,"w":15,"h":19},
 	"sourceSize": {"w":19,"h":19}
 },
-"player_3.png":
+"powerup_0.png":
 {
-	"frame": {"x":25,"y":80,"w":15,"h":13},
+	"frame": {"x":46,"y":82,"w":13,"h":13},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":4,"w":15,"h":13},
+	"spriteSourceSize": {"x":2,"y":3,"w":13,"h":13},
 	"sourceSize": {"w":19,"h":19}
 },
-"shadow.png":
+"powerup_1.png":
 {
-	"frame": {"x":32,"y":57,"w":19,"h":17},
+	"frame": {"x":46,"y":82,"w":13,"h":13},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":2,"w":19,"h":17},
+	"spriteSourceSize": {"x":2,"y":3,"w":13,"h":13},
 	"sourceSize": {"w":19,"h":19}
 },
 "tilemapOne_0.png":
@@ -87,6 +95,6 @@
 	"format": "RGBA8888",
 	"size": {"w":64,"h":128},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:27fab31d267d7a1c3a38a3c1c543be5c:1/1$"
+	"smartupdate": "$TexturePacker:SmartUpdate:6ba4224b04db823c19ca039d207925dd:1/1$"
 }
 }

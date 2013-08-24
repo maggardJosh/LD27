@@ -19,35 +19,34 @@ public class Main : MonoBehaviour
         Futile.atlasManager.LoadAtlas("Atlases/atlasOne");
         Futile.atlasManager.LoadAtlas("Atlases/Fonts");
         Futile.atlasManager.LoadFont("Small", "Small Font", "Atlases/Small Font", 0, 0);
-
         
 
         world = new World();
 
         clock = new Clock();
-        Player player = new Player(true);
-        world.addPlayer(player);
 
 
         FCamObject gui = new FCamObject();
         gui.AddChild(clock);
-        gui.follow(player);
+
+        Timer timer = new Timer();
+        gui.AddChild(timer);
 
         world.setGUI(gui);
         world.setClock(clock);
 
+        Player player = new Player(true);
+        gui.follow(player);
+        player.setScale(2.0f, true);
+        world.addPlayer(player);
         Futile.stage.AddChild(gui);
-        float randSize = 200;
-        for (int ind = 0; ind < 20; ind++)
+        for (int ind = 0; ind < 100; ind++)
         {
             Player p = new Player();
-            p.x = RXRandom.Float() * randSize * 2 - randSize;
-            p.y = RXRandom.Float() * randSize * 2 - randSize;
             world.addPlayer(p);
             
         }
         Futile.instance.SignalUpdate += world.Update;
-
         
     }
 
