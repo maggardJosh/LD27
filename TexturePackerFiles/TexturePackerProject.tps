@@ -155,6 +155,7 @@
             <filename>Powerups</filename>
             <filename>TitleScren</filename>
             <filename>music.png</filename>
+            <filename>Minimap</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

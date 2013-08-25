@@ -18,6 +18,8 @@ public class World
 
     float startNumPlayers;
 
+    public Minimap miniMap;
+
     private FTmxMap tmxMap = new FTmxMap();
     private FTilemap tilemap;
     private FContainer playerLayer = new FContainer();
@@ -43,16 +45,25 @@ public class World
                                                         "One more level...",
                                                         "Last Level!..."};
     private FLabel beginningLabel;
+    private FLabel beginningLabelShadow;
 
     public World(int level)
     {
-    
+        
         string beginningMessage = "";
         if (beginningMessages.Length > level)
             beginningMessage = beginningMessages[level];
         beginningLabel = new FLabel("Large", beginningMessage);
         beginningLabel.alpha = 1.0f;
         beginningLabel.y = -70;
+
+        beginningLabelShadow = new FLabel("Large", beginningMessage);
+        beginningLabelShadow.color = Color.black;
+        beginningLabelShadow.SetPosition(beginningLabel.GetPosition());
+        
+        beginningLabelShadow.x += 1;
+        beginningLabelShadow.y += -1;
+        
 
         this.currentLevelNum = level;
         string levelName = "Maps/map" + level;
@@ -95,7 +106,7 @@ public class World
                         break;
                 }
             }
-
+        this.miniMap = new Minimap(this);
         playerLayer.AddChild(tmxMap);
         tilemap.clipNode = gui;
 
@@ -104,6 +115,7 @@ public class World
         addPlayer(player);
         player.setScale(2.0f, true);
 
+        miniMap.setFollow(player);
 
         for (int ind = 0; ind < startNumPlayers; ind++)
         {
@@ -113,17 +125,22 @@ public class World
 
         Futile.stage.AddChild(gui);
 
-        gui.AddChild(beginningLabel);
         gui.AddChild(new MuteMusicButton());
+        gui.AddChild(miniMap);
+        gui.AddChild(beginningLabelShadow);
+        gui.AddChild(beginningLabel);
     }
 
     public bool isWalkable(int tileX, int tileY)
     {
+        if (tileX < 0 || tileY < 0 || tileX >= tilemap.widthInTiles || tileY >= tilemap.heightInTiles)
+            return false;        //For minimap drawing
         return tilemap.getFrameNum(tileX, tileY) != 1;
     }
 
     public void addPlayer(Player p)
     {
+        p.addToMiniMap(miniMap);
         if (p.isControlled)
             p.SetPosition(playerSpawn.GetPosition());
         else
@@ -148,6 +165,7 @@ public class World
         else if (beginningLabel.alpha > 0)
         {
             beginningLabel.alpha -= .3f * UnityEngine.Time.deltaTime;
+            beginningLabelShadow.alpha = beginningLabel.alpha;
         }
         enemyClock.percentage = (playerList.Count - 1) / startNumPlayers;
         if (playerList.Count == 1)

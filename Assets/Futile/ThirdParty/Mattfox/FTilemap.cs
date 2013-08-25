@@ -399,6 +399,9 @@ public class FTilemap : FContainer
 
     public int getFrameNum(int givenX, int givenY)
     {
+        if (givenX < 0 || givenY < 0 || givenX >= widthInTiles || givenY >= heightInTiles)
+            return -1;
+        
         return _tileArray[(givenX % _tilesWide) + (givenY * _tilesWide)];
     }
 

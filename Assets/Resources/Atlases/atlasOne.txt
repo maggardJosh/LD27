@@ -32,6 +32,14 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":39,"h":39},
 	"sourceSize": {"w":39,"h":39}
 },
+"playerBlip.png":
+{
+	"frame": {"x":488,"y":270,"w":7,"h":7},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":7,"h":7},
+	"sourceSize": {"w":7,"h":7}
+},
 "player_0.png":
 {
 	"frame": {"x":488,"y":234,"w":15,"h":13},
@@ -119,6 +127,6 @@
 	"format": "RGBA8888",
 	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:4099f922925afcb7ad91674095f1f40a:1/1$"
+	"smartupdate": "$TexturePacker:SmartUpdate:6615cf96ebdd076429971315a0414586:1/1$"
 }
 }

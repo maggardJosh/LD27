@@ -15,6 +15,8 @@ public class Player : FAnimatedSprite
     private bool isControllable;
     public int secondValue = 1;
 
+    private FSprite playerBlip;
+
     private Powerup.PowerupType powerUpType = Powerup.PowerupType.NONE;
 
     public bool isControlled { get { return isControllable; } }
@@ -35,6 +37,7 @@ public class Player : FAnimatedSprite
     public Player(bool isControllable = false)
         : base("player")
     {
+        playerBlip = new FSprite("playerBlip");
         hair = new FSprite("hair");
         this.isControllable = isControllable;
         addAnimation(new FAnimation("idle", new int[] { 0 }, 100, true));
@@ -46,6 +49,7 @@ public class Player : FAnimatedSprite
         powerupClock = new PowerupClock();
         if (isControllable)
         {
+            playerBlip.color = Color.green;
             play("pistol");
             shadow = new FSprite("player_1");
             hair.color = Color.black;
@@ -54,6 +58,7 @@ public class Player : FAnimatedSprite
         }
         else
         {
+            playerBlip.color = Color.red;
             play("idle");
             hair.color = new Color(RXRandom.Float() * .5f, RXRandom.Float() * .5f, RXRandom.Float() * .5f);
             float randomColorMult = .5f + RXRandom.Float() * .5f;
@@ -75,6 +80,7 @@ public class Player : FAnimatedSprite
 
     public override void HandleRemovedFromContainer()
     {
+        playerBlip.RemoveFromContainer();
         shadow.RemoveFromContainer();
         base.HandleRemovedFromContainer();
         hair.RemoveFromContainer();
@@ -171,6 +177,9 @@ public class Player : FAnimatedSprite
         shadow.y -= 3;
         hair.SetPosition(this.GetPosition());
         hair.rotation = this.rotation;
+
+        playerBlip.SetPosition(GetPosition() * Minimap.BLIP_POS_MULT);
+        playerBlip.rotation = this.rotation;
 
         base.Update();
     }
@@ -298,6 +307,11 @@ public class Player : FAnimatedSprite
     {
         this.powerUpType = powerupType;
         this.powerupClock.setPowerUpType(powerupType);
+    }
+
+    internal void addToMiniMap(Minimap miniMap)
+    {
+        miniMap.addBlip(playerBlip);
     }
 }
 
