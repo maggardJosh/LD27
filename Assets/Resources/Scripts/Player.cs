@@ -96,13 +96,13 @@ public class Player : FAnimatedSprite
 
             xMove = 0;
             yMove = 0;
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
                 yMove = controlSpeed * UnityEngine.Time.deltaTime;
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
                 yMove = -(controlSpeed * UnityEngine.Time.deltaTime);
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
                 xMove = -(controlSpeed * UnityEngine.Time.deltaTime);
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
                 xMove = controlSpeed * UnityEngine.Time.deltaTime;
             if (Input.GetMouseButton(0))
                 state = State.SHOOTING;
