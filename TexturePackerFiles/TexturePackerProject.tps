@@ -154,6 +154,7 @@
             <filename>Tiles</filename>
             <filename>Powerups</filename>
             <filename>TitleScren</filename>
+            <filename>music.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

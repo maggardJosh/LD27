@@ -35,12 +35,13 @@ public class World
     private int[] enemiesOnLevel = new int[] { 30, 30, 40, 40, 40, 60, 40};
     private string[] beginningMessages = new string[] {"Kill All Enemies Before Time Runs Out\n\nWASD - Move\n\nMouse - Shoot",
                                                       "Tip: Sometimes Bigger Enemies Drop Powerups... Shh...",
-                                                      "",
+                                                      "You gain more time with every enemy you kill...",
                                                       "Remember You Don't Have to Kill Every Enemy At Once" };
     private FLabel beginningLabel;
 
     public World(int level)
     {
+    
         string beginningMessage = "";
         if (beginningMessages.Length > level)
             beginningMessage = beginningMessages[level];
@@ -108,6 +109,7 @@ public class World
         Futile.stage.AddChild(gui);
 
         gui.AddChild(beginningLabel);
+        gui.AddChild(new MuteMusicButton());
     }
 
     public bool isWalkable(int tileX, int tileY)
