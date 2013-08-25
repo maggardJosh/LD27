@@ -70,6 +70,7 @@ public class World
         this.startNumPlayers = enemiesOnLevel[level];
 
         clock = new Clock();
+        clock.enableSound();
         enemyClock = new EnemyClock();
 
         gui = new FCamObject();
@@ -170,6 +171,7 @@ public class World
         enemyClock.percentage = (playerList.Count - 1) / startNumPlayers;
         if (playerList.Count == 1)
         {
+            clock.disableClock();
             if (endScreen == null)
             {
                 FSoundManager.PlaySound("win");

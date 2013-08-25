@@ -13,6 +13,9 @@ public class Clock : FRadialWipeSprite
     protected FSprite clockBackground;
     protected FLabel label;
     protected FLabel labelShadow;
+    private bool tickSound = false;
+    private bool update = true;
+
     public Clock()
         : base("clock", true, 0, 1.0f)
     {
@@ -29,7 +32,16 @@ public class Clock : FRadialWipeSprite
         label.y = y + height / 3 * tickScale / 2;
         labelShadow = new FLabel("Large", "Time Left");
         labelShadow.color = new Color(0, 0, 0, .5f);
-        
+
+    }
+
+    public void enableSound()
+    {
+        tickSound = true;
+    }
+    public void disableClock()
+    {
+        update = false;
     }
 
     public override void HandleAddedToContainer(FContainer container)
@@ -67,12 +79,20 @@ public class Clock : FRadialWipeSprite
         labelShadow.text = label.text;
 
         labelShadow.SetPosition(label.GetPosition() + new Vector2(1, -1));
-        percentage -= UnityEngine.Time.deltaTime * .1f;
+        if (update)
+            percentage -= UnityEngine.Time.deltaTime * .1f;
         if (Mathf.CeilToInt(percentage * 10) != lastSecond)
         {
             lastSecond = Mathf.CeilToInt(percentage * 10);
             timeLabel.text = "" + lastSecond;
             this.scale = tickScale;
+            if(tickSound)
+            {
+                if (lastSecond <= 3)
+                    FSoundManager.PlaySound("countdownUrgent", .9f);
+                else
+                    FSoundManager.PlaySound("countdown", .8f);
+            }
         }
         else
         {
