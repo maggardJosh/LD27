@@ -1,4 +1,4 @@
-LD27
+Time War
 ====
 
-Time War - My 48-hour entry for the 27th Ludum Dare Competition
+My 48-hour entry for the 27th Ludum Dare Competition
