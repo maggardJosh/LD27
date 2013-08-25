@@ -32,7 +32,7 @@ public class World
     float beginTime = 1.0f;             //Give the player 1 second for free at the beginning
     float beginCount = 0;
 
-    private int[] enemiesOnLevel = new int[] { 30, 30, 40, 40, 40 };
+    private int[] enemiesOnLevel = new int[] { 30, 30, 40, 40, 40, 60 };
     private string beginningMessage = "Kill All Enemies Before Time Runs Out\n\nWASD - Move\n\nMouse - Shoot";
     private FLabel beginningLabel;
 
