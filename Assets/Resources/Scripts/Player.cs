@@ -43,7 +43,7 @@ public class Player : FAnimatedSprite
         addAnimation(new FAnimation("machinegun", new int[] { 3 }, 100, true));
 
 
-            powerupClock = new PowerupClock();
+        powerupClock = new PowerupClock();
         if (isControllable)
         {
             play("pistol");
@@ -87,7 +87,7 @@ public class Player : FAnimatedSprite
 
         if (isControllable)
         {
-            
+
             xMove = 0;
             yMove = 0;
             if (Input.GetKey(KeyCode.W))
@@ -142,7 +142,7 @@ public class Player : FAnimatedSprite
                 break;
             case State.SHOOTING:
 
-                if (lastShoot >= minShoot || (powerUpType == Powerup.PowerupType.MACHINEGUN && lastShoot >= minShoot*.05f))
+                if (lastShoot >= minShoot || (powerUpType == Powerup.PowerupType.MACHINEGUN && lastShoot >= minShoot * .05f))
                 {
                     lastShoot = 0;
 
@@ -152,19 +152,19 @@ public class Player : FAnimatedSprite
 
                 break;
         }
-
-        switch (this.powerUpType)
-        {
-            case Powerup.PowerupType.NONE:
-                play("pistol");
-                break;
-            case Powerup.PowerupType.SHOTGUN:
-                play("shotgun");
-                break;
-            case Powerup.PowerupType.MACHINEGUN:
-                play("machinegun");
-                break;
-        }
+        if (isControllable)
+            switch (this.powerUpType)
+            {
+                case Powerup.PowerupType.NONE:
+                    play("pistol");
+                    break;
+                case Powerup.PowerupType.SHOTGUN:
+                    play("shotgun");
+                    break;
+                case Powerup.PowerupType.MACHINEGUN:
+                    play("machinegun");
+                    break;
+            }
 
         shadow.rotation = this.rotation;
         shadow.SetPosition(this.GetPosition());
@@ -181,7 +181,7 @@ public class Player : FAnimatedSprite
         switch (powerUpType)
         {
             case Powerup.PowerupType.NONE:
-        FSoundManager.PlaySound("shoot 1", .3f);
+                FSoundManager.PlaySound("shoot 1", .3f);
                 float rotationRadians = -(rotation + 90) * C.PIOVER180;
                 float xDisp = -10;
                 float yDisp = -8;
@@ -214,7 +214,7 @@ public class Player : FAnimatedSprite
                 rotationRadians = -(rotation + 90) * C.PIOVER180;
                 xDisp = -12;
                 yDisp = -12;
-                 randomAngle = 6;
+                randomAngle = 6;
                 for (int x = 0; x < 1; x++)
                 {
                     float directionRotation = (rotation - 90 + RXRandom.Float() * randomAngle * 2 - randomAngle) * C.PIOVER180;
@@ -278,8 +278,8 @@ public class Player : FAnimatedSprite
     internal void setWorld(World world)
     {
         this.world = world;
-        if(this.isControllable)
-        world.gui.AddChild(powerupClock);
+        if (this.isControllable)
+            world.gui.AddChild(powerupClock);
 
         hair.MoveToFront();
     }
