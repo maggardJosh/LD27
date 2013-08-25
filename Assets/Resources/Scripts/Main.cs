@@ -10,6 +10,7 @@ public class Main : MonoBehaviour
     void Start()
     {
 
+        FSoundManager.isMuted = true;
         FutileParams futileParams = new FutileParams(true, false, false, false);
         futileParams.AddResolutionLevel(480, 1.0f, 1.0f, "");
         futileParams.origin = new Vector2(0.5f, 0.5f);

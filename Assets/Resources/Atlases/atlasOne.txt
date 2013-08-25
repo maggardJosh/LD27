@@ -2,7 +2,7 @@
 
 "bullet.png":
 {
-	"frame": {"x":509,"y":134,"w":1,"h":2},
+	"frame": {"x":509,"y":186,"w":1,"h":2},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":2,"w":1,"h":2},
@@ -10,7 +10,7 @@
 },
 "clock.png":
 {
-	"frame": {"x":488,"y":86,"w":19,"h":19},
+	"frame": {"x":488,"y":113,"w":19,"h":19},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":19,"h":19},
@@ -18,7 +18,7 @@
 },
 "hair.png":
 {
-	"frame": {"x":488,"y":239,"w":13,"h":11},
+	"frame": {"x":488,"y":253,"w":13,"h":11},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":7,"w":13,"h":11},
@@ -26,7 +26,7 @@
 },
 "player_0.png":
 {
-	"frame": {"x":488,"y":182,"w":15,"h":13},
+	"frame": {"x":488,"y":234,"w":15,"h":13},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":5,"w":15,"h":13},
@@ -34,7 +34,7 @@
 },
 "player_1.png":
 {
-	"frame": {"x":488,"y":159,"w":15,"h":17},
+	"frame": {"x":488,"y":211,"w":15,"h":17},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":1,"w":15,"h":17},
@@ -42,7 +42,7 @@
 },
 "player_2.png":
 {
-	"frame": {"x":488,"y":134,"w":15,"h":19},
+	"frame": {"x":488,"y":186,"w":15,"h":19},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":0,"w":15,"h":19},
@@ -50,7 +50,7 @@
 },
 "player_3.png":
 {
-	"frame": {"x":488,"y":111,"w":17,"h":17},
+	"frame": {"x":488,"y":163,"w":17,"h":17},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":17,"h":17},
@@ -58,19 +58,19 @@
 },
 "powerup_0.png":
 {
-	"frame": {"x":488,"y":220,"w":13,"h":13},
+	"frame": {"x":488,"y":138,"w":17,"h":19},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":3,"w":13,"h":13},
+	"spriteSourceSize": {"x":1,"y":0,"w":17,"h":19},
 	"sourceSize": {"w":19,"h":19}
 },
 "powerup_1.png":
 {
-	"frame": {"x":488,"y":201,"w":13,"h":13},
+	"frame": {"x":488,"y":86,"w":21,"h":21},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":3,"w":13,"h":13},
-	"sourceSize": {"w":19,"h":19}
+	"spriteSourceSize": {"x":1,"y":1,"w":21,"h":21},
+	"sourceSize": {"w":25,"h":25}
 },
 "tilemapOne_0.png":
 {
@@ -111,6 +111,6 @@
 	"format": "RGBA8888",
 	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:8fe45da054dd35646e277180565a2187:1/1$"
+	"smartupdate": "$TexturePacker:SmartUpdate:6d68e015380a8b0ead9bd141bdd0fed3:1/1$"
 }
 }
