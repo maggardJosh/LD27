@@ -36,14 +36,14 @@ public class World
 
     private int[] enemiesOnLevel = new int[] { 30, 30, 40, 40, 40, 60, 40, 60, 60 };
     private string[] beginningMessages = new string[] {"Kill all enemies before time runs Out\n\nWASD - Move\n\nMouse - Shoot",
-                                                      "Tip: Sometimes bigger enemies drop powerups... Shh...",
-                                                      "You gain back time with every enemy you kill...",
-                                                      "Remember you don't have to kill every enemy right away...",
-                                                        "No more tips... Good luck",
-                                                        "", 
-                                                        "",
-                                                        "One more level...",
-                                                        "Last Level!..."};
+                                                      "Level 1\n\nTip: Sometimes bigger enemies drop powerups... Shh...",
+                                                      "Level 2\n\nYou gain back time with every enemy you kill...",
+                                                      "Level 3\n\nRemember you don't have to kill every enemy right away...",
+                                                        "Level 4\n\nNo more tips... Good luck",
+                                                        "Level 5", 
+                                                        "Level 6",
+                                                        "Level 7\n\nOne more level...",
+                                                        "Level 8\n\nLast Level!..."};
     private FLabel beginningLabel;
     private FLabel beginningLabelShadow;
 

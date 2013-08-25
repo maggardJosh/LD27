@@ -180,6 +180,7 @@ public class Player : FAnimatedSprite
 
         playerBlip.SetPosition(GetPosition() * Minimap.BLIP_POS_MULT);
         playerBlip.rotation = this.rotation;
+        playerBlip.scale = this.scale*.5f;
 
         base.Update();
     }
