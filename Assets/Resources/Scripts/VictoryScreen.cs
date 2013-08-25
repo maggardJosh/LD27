@@ -27,7 +27,7 @@ public class LevelOverScreen : FContainer
             levelCompleteLabel = new FLabel("Large", "You Ran Out Of Time!\n\nClick to Retry");
 
         if (lastLevel)
-            levelCompleteLabel.text = "Level Complete!\n\nThat was the last level!!! Good Job!";
+            levelCompleteLabel.text = "Level Complete!\n\nThat was the last level!!!\n\nThanks for Playing\n\n\n                             Jif";
         levelCompleteLabel.alpha = 0;
 
         AddChild(transparentBackground);

@@ -7,7 +7,7 @@ using UnityEngine;
 public class TitleScreen : FContainer
 {
     private float onScreenCount = 0;
-    private int startingLevel = 7;
+    private int startingLevel = 0;
     private FLabel clickToStart;
     private FLabel disclaimer;
     private MuteMusicButton mute;

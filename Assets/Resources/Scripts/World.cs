@@ -32,11 +32,16 @@ public class World
     float beginTime = 1.0f;             //Give the player 1 second for free at the beginning
     float beginCount = 0;
 
-    private int[] enemiesOnLevel = new int[] { 30, 30, 40, 40, 40, 60, 40, 60};
-    private string[] beginningMessages = new string[] {"Kill All Enemies Before Time Runs Out\n\nWASD - Move\n\nMouse - Shoot",
-                                                      "Tip: Sometimes Bigger Enemies Drop Powerups... Shh...",
-                                                      "You gain more time with every enemy you kill...",
-                                                      "Remember You Don't Have to Kill Every Enemy At Once" };
+    private int[] enemiesOnLevel = new int[] { 30, 30, 40, 40, 40, 60, 40, 60, 60 };
+    private string[] beginningMessages = new string[] {"Kill all enemies before time runs Out\n\nWASD - Move\n\nMouse - Shoot",
+                                                      "Tip: Sometimes bigger enemies drop powerups... Shh...",
+                                                      "You gain back time with every enemy you kill...",
+                                                      "Remember you don't have to kill every enemy right away...",
+                                                        "No more tips... Good luck",
+                                                        "", 
+                                                        "",
+                                                        "One more level...",
+                                                        "Last Level!..."};
     private FLabel beginningLabel;
 
     public World(int level)
