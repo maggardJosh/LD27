@@ -14,6 +14,8 @@ public class World
     FNode playerSpawn;
     int currentLevelNum = 0;
 
+    LevelOverScreen endScreen = null;
+
     float startNumPlayers;
 
     private FTmxMap tmxMap = new FTmxMap();
@@ -31,14 +33,20 @@ public class World
     float beginCount = 0;
 
     private int[] enemiesOnLevel = new int[] { 30, 30, 40, 40, 40 };
+    private string beginningMessage = "Kill All Enemies Before Time Runs Out\n\nWASD - Move\n\nMouse - Shoot";
+    private FLabel beginningLabel;
 
     public World(int level)
     {
 
-        
-        
+        beginningLabel = new FLabel("Large", beginningMessage);
+        if (level == 0)
+            beginningLabel.alpha = 1.0f;
+        else
+            beginningLabel.alpha = 0.0f;
+
         this.currentLevelNum = level;
-        string levelName = "Maps/map" + level ;
+        string levelName = "Maps/map" + level;
         this.startNumPlayers = enemiesOnLevel[level];
 
         clock = new Clock();
@@ -94,6 +102,8 @@ public class World
         }
 
         Futile.stage.AddChild(gui);
+
+        gui.AddChild(beginningLabel);
     }
 
     public bool isWalkable(int tileX, int tileY)
@@ -124,21 +134,61 @@ public class World
             beginCount += UnityEngine.Time.deltaTime;
             clock.percentage = 1.0f;
         }
+        else if (beginningLabel.alpha > 0)
+        {
+            beginningLabel.alpha -= .3f * UnityEngine.Time.deltaTime;
+        }
         enemyClock.percentage = (playerList.Count - 1) / startNumPlayers;
         if (playerList.Count == 1)
         {
-            Futile.instance.SignalUpdate -= Update;
-            Futile.stage.RemoveAllChildren();
-            if (this.currentLevelNum + 1 < enemiesOnLevel.Length)
+            if (endScreen == null)
             {
-
-                World newWorld = new World(++this.currentLevelNum);
-                Futile.instance.SignalUpdate += newWorld.Update;
+                FSoundManager.PlaySound("win");
+                endScreen = new LevelOverScreen(true);
+                gui.AddChild(endScreen);
+                
             }
             else
             {
-                TitleScreen titleScreen = new TitleScreen();
-                Futile.stage.AddChild(titleScreen);
+              
+                if (endScreen.readyToStart)
+                {
+                    Futile.instance.SignalUpdate -= Update;
+                    Futile.stage.RemoveAllChildren();
+                    if (this.currentLevelNum + 1 < enemiesOnLevel.Length)
+                    {
+
+                        World newWorld = new World(++this.currentLevelNum);
+                        Futile.instance.SignalUpdate += newWorld.Update;
+                    }
+                    else
+                    {
+                        TitleScreen titleScreen = new TitleScreen();
+                        Futile.stage.AddChild(titleScreen);
+                    }
+                }
+            }
+
+        }
+        else if (clock.percentage <= 0)
+        {
+            if (endScreen == null)
+            {
+                FSoundManager.PlaySound("lose");
+                endScreen = new LevelOverScreen(false);
+                gui.AddChild(endScreen);
+            }
+            else
+            {
+                endScreen.MoveToFront();
+                if (endScreen.readyToStart)
+                {
+                    Futile.instance.SignalUpdate -= Update;
+                    Futile.stage.RemoveAllChildren();
+
+                    World newWorld = new World(this.currentLevelNum);
+                    Futile.instance.SignalUpdate += newWorld.Update;
+                }
             }
         }
         for (int ind = 0; ind < powerups.Count; ind++)
@@ -146,15 +196,15 @@ public class World
             Powerup powerup = powerups[ind];
             foreach (Player p in playerList)
             {
-                if(p.isControlled)
-                if (powerup.checkCollision(p))
-                {
-                    FSoundManager.PlaySound("powerup");
-                    p.collectPowerUp(powerup.PType);
-                    powerup.RemoveFromContainer();
-                    powerups.Remove(powerup);
-                    ind--;
-                }
+                if (p.isControlled)
+                    if (powerup.checkCollision(p))
+                    {
+                        FSoundManager.PlaySound("powerup");
+                        p.collectPowerUp(powerup.PType);
+                        powerup.RemoveFromContainer();
+                        powerups.Remove(powerup);
+                        ind--;
+                    }
             }
         }
         for (int ind = 0; ind < bulletList.Count; ind++)
@@ -164,7 +214,7 @@ public class World
             for (int playerInd = 0; playerInd < playerList.Count; playerInd++)
             {
                 Player p = playerList[playerInd];
-                if (b.checkCollision(p))
+                if (clock.percentage > 0 && b.checkCollision(p))
                 {
                     p.setScale(p.scale - 1.0f, false);
                     if (p.scale <= 0)
@@ -220,9 +270,9 @@ public class World
         playerLayer.AddChild(b);
     }
 
-    
 
-    
+
+
 
     internal void setClock(Clock clock)
     {
