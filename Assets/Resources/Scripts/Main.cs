@@ -22,7 +22,9 @@ public class Main : MonoBehaviour
 
         TitleScreen titleScreen = new TitleScreen();
         Futile.stage.AddChild(titleScreen);
-        
+
+        FSoundManager.PlayMusic("LD27Music", .3f);
+
     }
 
     // Update is called once per frame

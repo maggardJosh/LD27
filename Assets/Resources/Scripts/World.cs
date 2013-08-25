@@ -169,7 +169,7 @@ public class World
                     p.setScale(p.scale - 1.0f, false);
                     if (p.scale <= 0)
                     {
-                        FSoundManager.PlaySound("dead");
+                        FSoundManager.PlaySound("dead", .3f);
                         p.RemoveFromContainer();
                         playerList.Remove(p);
                         playerInd--;
@@ -194,7 +194,7 @@ public class World
                     }
                     else
                     {
-                        FSoundManager.PlaySound("hit");
+                        FSoundManager.PlaySound("hit", .3f);
 
                     }
                     b.RemoveFromContainer();
