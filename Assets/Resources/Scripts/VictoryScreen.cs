@@ -13,7 +13,7 @@ public class LevelOverScreen : FContainer
 
     public bool readyToStart = false;
 
-    public LevelOverScreen(bool won)
+    public LevelOverScreen(bool won, bool lastLevel = false)
         : base()
     {
         transparentBackground = new FSprite(Futile.whiteElement);
@@ -25,6 +25,9 @@ public class LevelOverScreen : FContainer
             levelCompleteLabel = new FLabel("Large", "Level Complete!\n\nClick to Continue");
         else
             levelCompleteLabel = new FLabel("Large", "You Ran Out Of Time!\n\nClick to Retry");
+
+        if (lastLevel)
+            levelCompleteLabel.text = "Level Complete!\n\nThat was the last level!!! Good Job!";
         levelCompleteLabel.alpha = 0;
 
         AddChild(transparentBackground);

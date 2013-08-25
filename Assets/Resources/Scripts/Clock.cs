@@ -29,7 +29,7 @@ public class Clock : FRadialWipeSprite
         label.y = y + height / 3 * tickScale / 2;
         labelShadow = new FLabel("Large", "Time Left");
         labelShadow.color = new Color(0, 0, 0, .5f);
-
+        
     }
 
     public override void HandleAddedToContainer(FContainer container)

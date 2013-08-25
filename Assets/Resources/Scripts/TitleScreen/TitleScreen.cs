@@ -7,7 +7,7 @@ using UnityEngine;
 public class TitleScreen : FContainer
 {
     private float onScreenCount = 0;
-    private int startingLevel = 0;
+    private int startingLevel = 6;
     private FLabel clickToStart;
 
     public TitleScreen()
