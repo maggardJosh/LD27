@@ -10,15 +10,12 @@ public class LevelOverScreen : FContainer
     FSprite transparentBackground;
     FLabel levelCompleteLabel;
 
-    public bool fadeIn = false;
-    private bool won = false;
 
     public bool readyToStart = false;
 
     public LevelOverScreen(bool won)
         : base()
     {
-        this.won = won;
         transparentBackground = new FSprite(Futile.whiteElement);
         transparentBackground.color = Color.black;
         transparentBackground.alpha = 0;
@@ -56,7 +53,7 @@ public class LevelOverScreen : FContainer
 
 
 
-        if (levelCompleteLabel.alpha >= 1.0f && Input.GetMouseButtonUp(0))
+        if (levelCompleteLabel.alpha >= .4f && Input.GetMouseButtonUp(0))
         {
             readyToStart = true;
 

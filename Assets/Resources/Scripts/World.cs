@@ -33,17 +33,20 @@ public class World
     float beginCount = 0;
 
     private int[] enemiesOnLevel = new int[] { 30, 30, 40, 40, 40, 60 };
-    private string beginningMessage = "Kill All Enemies Before Time Runs Out\n\nWASD - Move\n\nMouse - Shoot";
+    private string[] beginningMessages = new string[] {"Kill All Enemies Before Time Runs Out\n\nWASD - Move\n\nMouse - Shoot",
+                                                      "Tip: Sometimes Bigger Enemies Drop Powerups... Shh...",
+                                                      "",
+                                                      "Remember You Don't Have to Kill Every Enemy At Once" };
     private FLabel beginningLabel;
 
     public World(int level)
     {
-
+        string beginningMessage = "";
+        if (beginningMessages.Length > level)
+            beginningMessage = beginningMessages[level];
         beginningLabel = new FLabel("Large", beginningMessage);
-        if (level == 0)
-            beginningLabel.alpha = 1.0f;
-        else
-            beginningLabel.alpha = 0.0f;
+        beginningLabel.alpha = 1.0f;
+        beginningLabel.y = -70;
 
         this.currentLevelNum = level;
         string levelName = "Maps/map" + level;
@@ -52,11 +55,9 @@ public class World
         clock = new Clock();
         enemyClock = new EnemyClock();
 
-        FCamObject gui = new FCamObject();
+        gui = new FCamObject();
         gui.AddChild(clock);
         gui.AddChild(enemyClock);
-
-        this.gui = gui;
 
         setClock(clock);
 
@@ -64,6 +65,7 @@ public class World
 
         tmxMap.LoadTMX(levelName);
         tilemap = (FTilemap)(tmxMap.getLayerNamed("Tilemap"));
+
         FTilemap objectLayer = (FTilemap)(tmxMap.getLayerNamed("Objects"));
 
         for (int xInd = 0; xInd < objectLayer.widthInTiles; xInd++)
@@ -90,10 +92,12 @@ public class World
 
         playerLayer.AddChild(tmxMap);
         tilemap.clipNode = gui;
+
         Player player = new Player(true);
         gui.follow(player);
         addPlayer(player);
         player.setScale(2.0f, true);
+
 
         for (int ind = 0; ind < startNumPlayers; ind++)
         {
@@ -146,11 +150,11 @@ public class World
                 FSoundManager.PlaySound("win");
                 endScreen = new LevelOverScreen(true);
                 gui.AddChild(endScreen);
-                
+
             }
             else
             {
-              
+
                 if (endScreen.readyToStart)
                 {
                     Futile.instance.SignalUpdate -= Update;

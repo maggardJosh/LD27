@@ -12,10 +12,11 @@ public class Clock : FRadialWipeSprite
     protected FLabel timeLabel;
     protected FSprite clockBackground;
     protected FLabel label;
+    protected FLabel labelShadow;
     public Clock()
         : base("clock", true, 0, 1.0f)
     {
-        label = new FLabel("Small", "Time Left");
+        label = new FLabel("Large", "Time Left");
         timeLabel = new FLabel("Small", "10");
         timeLabel.color = Color.black;
         x = Futile.screen.halfWidth - width * tickScale / 2 - clockMargin;
@@ -25,7 +26,9 @@ public class Clock : FRadialWipeSprite
         clockBackground = new FSprite("clock");
         clockBackground.SetPosition(GetPosition());
         label.x = x;
-        label.y = y - height / 2 * tickScale / 2;
+        label.y = y + height / 3 * tickScale / 2;
+        labelShadow = new FLabel("Large", "Time Left");
+        labelShadow.color = new Color(0, 0, 0, .5f);
 
     }
 
@@ -33,6 +36,7 @@ public class Clock : FRadialWipeSprite
     {
         container.AddChild(clockBackground);
         container.AddChild(timeLabel);
+        container.AddChild(labelShadow);
         base.HandleAddedToContainer(container);
         container.AddChild(label);
     }
@@ -44,6 +48,7 @@ public class Clock : FRadialWipeSprite
 
     public override void HandleRemovedFromStage()
     {
+        labelShadow.RemoveFromContainer();
         clockBackground.RemoveFromContainer();
         Futile.instance.SignalUpdate -= Update;
         timeLabel.RemoveFromContainer();
@@ -56,6 +61,12 @@ public class Clock : FRadialWipeSprite
     public virtual void Update()
     {
         timeLabel.MoveToFront();
+        labelShadow.MoveToFront();
+        label.MoveToFront();
+
+        labelShadow.text = label.text;
+
+        labelShadow.SetPosition(label.GetPosition() + new Vector2(1, -1));
         percentage -= UnityEngine.Time.deltaTime * .1f;
         if (Mathf.CeilToInt(percentage * 10) != lastSecond)
         {
